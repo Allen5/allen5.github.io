@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Motionless</title>
   
-  <subtitle>work more and talk less</subtitle>
+  <subtitle>Work more and Talk less</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.motionless.zone/"/>
@@ -36,6 +36,31 @@
     </summary>
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>中文文章测试</title>
+    <link href="https://www.motionless.zone/2020/07/27/zhong-wen-wen-zhang-ce-shi/"/>
+    <id>https://www.motionless.zone/2020/07/27/zhong-wen-wen-zhang-ce-shi/</id>
+    <published>2020-07-27T15:09:48.000Z</published>
+    <updated>2020-07-27T15:10:48.899Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;中文文章测试&quot;&gt;&lt;a href=&quot;#中文文章测试&quot; class=&quot;headerlink&quot; title=&quot;中文文章测试&quot;&gt;&lt;/a&gt;中文文章测试&lt;/h1&gt;&lt;h2 id=&quot;这就是个Markdown呀！&quot;&gt;&lt;a href=&quot;#这就是个Markdown呀！&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="测试" scheme="https://www.motionless.zone/tags/%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
