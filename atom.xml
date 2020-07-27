@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.motionless.zone/"/>
-  <updated>2020-07-27T05:19:01.282Z</updated>
+  <updated>2020-07-27T15:20:24.531Z</updated>
   <id>https://www.motionless.zone/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://www.motionless.zone/2020/07/27/hello-world/"/>
-    <id>https://www.motionless.zone/2020/07/27/hello-world/</id>
-    <published>2020-07-27T05:19:01.282Z</published>
-    <updated>2020-07-27T05:19:01.282Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
-        
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>中文文章测试</title>
@@ -67,11 +44,64 @@
   </entry>
   
   <entry>
+    <title>Emacs配置（一）: 重新上路</title>
+    <link href="https://www.motionless.zone/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/"/>
+    <id>https://www.motionless.zone/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/</id>
+    <published>2020-07-27T15:46:08.000Z</published>
+    <updated>2020-07-27T15:48:28.729Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;重拾Emacs&quot;&gt;&lt;a href=&quot;#重拾Emacs&quot; class=&quot;headerlink&quot; title=&quot;重拾Emacs&quot;&gt;&lt;/a&gt;重拾Emacs&lt;/h1&gt;&lt;p&gt;xxxxxxxxxxx&lt;/p&gt;
+&lt;h2 id=&quot;配置说明&quot;&gt;&lt;a href=&quot;#配置说明&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Workflow" scheme="https://www.motionless.zone/categories/Workflow/"/>
+    
+    
+      <category term="Emacs配置" scheme="https://www.motionless.zone/tags/Emacs%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="Workflow" scheme="https://www.motionless.zone/tags/Workflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://www.motionless.zone/2020/07/27/hello-world/"/>
+    <id>https://www.motionless.zone/2020/07/27/hello-world/</id>
+    <published>2020-07-27T05:19:01.282Z</published>
+    <updated>2020-07-27T05:19:01.282Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>测试图片</title>
     <link href="https://www.motionless.zone/2020/07/27/ce-shi-tu-pian/"/>
     <id>https://www.motionless.zone/2020/07/27/ce-shi-tu-pian/</id>
     <published>2020-07-27T15:33:45.000Z</published>
-    <updated>2020-07-27T15:35:02.949Z</updated>
+    <updated>2020-07-27T15:43:28.506Z</updated>
     
     <summary type="html">
     
