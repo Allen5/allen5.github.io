@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.motionless.zone/"/>
-  <updated>2020-07-27T15:20:24.531Z</updated>
+  <updated>2020-08-04T06:21:16.549Z</updated>
   <id>https://www.motionless.zone/</id>
   
   <author>
@@ -17,38 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>中文文章测试</title>
-    <link href="https://www.motionless.zone/2020/07/27/zhong-wen-wen-zhang-ce-shi/"/>
-    <id>https://www.motionless.zone/2020/07/27/zhong-wen-wen-zhang-ce-shi/</id>
-    <published>2020-07-27T15:09:48.000Z</published>
-    <updated>2020-07-27T15:20:24.531Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;中文文章测试&quot;&gt;&lt;a href=&quot;#中文文章测试&quot; class=&quot;headerlink&quot; title=&quot;中文文章测试&quot;&gt;&lt;/a&gt;中文文章测试&lt;/h1&gt;&lt;h2 id=&quot;这就是个Markdown呀！&quot;&gt;&lt;a href=&quot;#这就是个Markdown呀！&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="胡言乱语" scheme="https://www.motionless.zone/categories/%E8%83%A1%E8%A8%80%E4%B9%B1%E8%AF%AD/"/>
-    
-    
-      <category term="测试" scheme="https://www.motionless.zone/tags/%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Emacs配置（一）: 重新上路</title>
     <link href="https://www.motionless.zone/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/"/>
     <id>https://www.motionless.zone/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/</id>
     <published>2020-07-27T15:46:08.000Z</published>
-    <updated>2020-07-27T15:48:28.729Z</updated>
+    <updated>2020-08-04T06:21:16.549Z</updated>
     
     <summary type="html">
     
@@ -56,8 +29,7 @@
       
         
         
-          &lt;h1 id=&quot;重拾Emacs&quot;&gt;&lt;a href=&quot;#重拾Emacs&quot; class=&quot;headerlink&quot; title=&quot;重拾Emacs&quot;&gt;&lt;/a&gt;重拾Emacs&lt;/h1&gt;&lt;p&gt;xxxxxxxxxxx&lt;/p&gt;
-&lt;h2 id=&quot;配置说明&quot;&gt;&lt;a href=&quot;#配置说明&quot;
+          &lt;h1 id=&quot;重拾Emacs&quot;&gt;&lt;a href=&quot;#重拾Emacs&quot; class=&quot;headerlink&quot; title=&quot;重拾Emacs&quot;&gt;&lt;/a&gt;重拾Emacs&lt;/h1&gt;&lt;p&gt;最近使用&lt;code&gt;spring
         
       
     
@@ -70,29 +42,6 @@
       <category term="Emacs配置" scheme="https://www.motionless.zone/tags/Emacs%E9%85%8D%E7%BD%AE/"/>
     
       <category term="Workflow" scheme="https://www.motionless.zone/tags/Workflow/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://www.motionless.zone/2020/07/27/hello-world/"/>
-    <id>https://www.motionless.zone/2020/07/27/hello-world/</id>
-    <published>2020-07-27T05:19:01.282Z</published>
-    <updated>2020-07-27T05:19:01.282Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
-        
-      
-    
-    </summary>
-    
-    
     
   </entry>
   
