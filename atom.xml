@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.motionless.zone/"/>
-  <updated>2020-08-04T11:51:47.777Z</updated>
+  <updated>2020-08-04T14:03:30.730Z</updated>
   <id>https://www.motionless.zone/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.motionless.zone/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/"/>
     <id>https://www.motionless.zone/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/</id>
     <published>2020-07-27T15:46:08.000Z</published>
-    <updated>2020-08-04T11:51:47.777Z</updated>
+    <updated>2020-08-04T14:03:30.730Z</updated>
     
     <summary type="html">
     
@@ -30,6 +30,35 @@
         
         
           &lt;h1 id=&quot;重拾Emacs&quot;&gt;&lt;a href=&quot;#重拾Emacs&quot; class=&quot;headerlink&quot; title=&quot;重拾Emacs&quot;&gt;&lt;/a&gt;重拾Emacs&lt;/h1&gt;&lt;p&gt;最近使用&lt;code&gt;spring
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Workflow" scheme="https://www.motionless.zone/categories/Workflow/"/>
+    
+    
+      <category term="Emacs配置" scheme="https://www.motionless.zone/tags/Emacs%E9%85%8D%E7%BD%AE/"/>
+    
+      <category term="Workflow" scheme="https://www.motionless.zone/tags/Workflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Emacs配置（二）-基本配置</title>
+    <link href="https://www.motionless.zone/2020/08/04/emacs-pei-zhi-er-ji-ben-pei-zhi/"/>
+    <id>https://www.motionless.zone/2020/08/04/emacs-pei-zhi-er-ji-ben-pei-zhi/</id>
+    <published>2020-08-04T13:30:17.000Z</published>
+    <updated>2020-08-04T15:22:57.234Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Emacs-基本配置&quot;&gt;&lt;a href=&quot;#Emacs-基本配置&quot; class=&quot;headerlink&quot; title=&quot;Emacs 基本配置&quot;&gt;&lt;/a&gt;Emacs
         
       
     

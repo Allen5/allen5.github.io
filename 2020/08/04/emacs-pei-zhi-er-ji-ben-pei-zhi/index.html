@@ -3,12 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Motionless | Work more and Talk less</title>
+  <title>Emacs配置（二）-基本配置 | Motionless | Work more and Talk less</title>
 
   
   <meta name="author" content="Allen Wu">
   
 
+  
+  <meta name="description" content="Emacs 基本配置在上一篇中，完成了在mac系统下的Emacs安装。现在拥有了一个UI非常原始的Emacs。在本节中，将规划配置目录结构，以方便配置文件的备份和共享。 
+同时将引入包管理工具，以方便快速的安装后续所支持的插件。
+再最后，利用包管理工具，尝试变更主题，以及默认全屏打开、默认显示文件行">
   
 
   
@@ -19,7 +23,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  
+  <meta property="og:title" content="Emacs配置（二）-基本配置"/>
 
   <meta property="og:site_name" content="Motionless"/>
 
@@ -60,12 +64,11 @@
 </header>
 
     <main class="site-main posts-loop">
-    
-  <article>
+    <article>
 
   
     
-    <h3 class="article-title"><a href="/2020/08/04/emacs-pei-zhi-er-ji-ben-pei-zhi/"><span>Emacs配置（二）-基本配置</span></a></h3>
+    <h3 class="article-title"><span>Emacs配置（二）-基本配置</span></h3>
     
   
 
@@ -175,113 +178,13 @@
   </div>
 </article>
 
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/"><span>Emacs配置（一）: 重新上路</span></a></h3>
-    
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/" rel="bookmark">
-        <time class="entry-date published" datetime="2020-07-27T15:46:08.000Z">
-          2020-07-27
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h1 id="重拾Emacs"><a href="#重拾Emacs" class="headerlink" title="重拾Emacs"></a>重拾Emacs</h1><p>最近使用<code>spring cloud</code>做微服务架构，老迈的机器扛不住使用<code>idea</code>同时打开几十个工程。 在做配置梳理以及代码阅读时，遇到非常大的障碍。</p>
-<p>本着轻量级的原则，使用了一段时间的<code>neo vim</code> 发现对于 <code>vim</code>的一些基本操作总是学了又忘，可能本质上还是不适应吧。突然想起来，以前就是用<code>Emacs</code>的嘛，还特意买了两个<code>HHKB</code>键盘来着，那为什么不继续用<code>Emacs</code>？ 工具还是要趁手的才好使，用的越久越习惯，才会越好使。</p>
-<p>所以有了这一篇，重新把<code>Emacs</code>捡起来。想起来在 <a href="https://github.com/Allen5/emacs_config" target="_blank" rel="noopener">Github</a> 上有以前备份的定制化<code>Emacs</code>配置。鉴于有那么2，3年没有把<code>Emacs</code>作为主力使用，一些基本的操作还是要重新温习一下。那么好，就当成全新的开始整理吧。</p>
-<h3 id="Emacs-科普"><a href="#Emacs-科普" class="headerlink" title="Emacs 科普"></a>Emacs 科普</h3><p>正经的官方科普还是需要参考下 <a href="https://zh.wikipedia.org/wiki/Emacs" target="_blank" rel="noopener">Wiki</a>.  这里随便瞎侃一下。</p>
-<p>Emacs本身是个操作系统，一个可以执行<code>emacs-lisp</code>代码的操作系统。但是，他又是个编辑器，往往被称作神的编辑器。这也恰恰说明了<code>Emacs</code>使用的学习成本是相当高的，看，需要“神”来使用。 与之相对的<code>vim</code>就被称之为“编辑器之神”。放个学习曲线图可以感受下。</p>
-<img src="/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/learn_curve.png" class="" title="Emacs Vim学习曲线图">
-
-<p>双方阵营的争端就不展开说了。简单描述下就是，像我这样又使用<code>vim</code>又使用<code>Emacs</code>的，会被双方人马架上火刑架烧死，算是对“异教徒”的惩罚，哈哈。</p>
-<p>不过，我想说的是人类之所以区别于野兽，是因为人类学会了使用工具。对，重点在这里，<strong>使用工具</strong>。 所以不必太在意阵营问题。</p>
-<h3 id="安装Emacs"><a href="#安装Emacs" class="headerlink" title="安装Emacs"></a>安装Emacs</h3><p>由于本人常年工作在<code>mac</code>系统，已经不太熟悉<code>windows</code>系统了，因此这边只描述下如何在<code>mac</code>系统中安装和使用<code>emacs</code>。对于其他系统或者其他安装方式，可以参考<code>Emacs</code><a href="https://www.gnu.org/software/emacs/download.html" target="_blank" rel="noopener">官方的安装教程</a></p>
-<p>我选择了使用<code>brew cask install emacs</code>的方式安装。如果网速快的话，略等几分钟即可完成安装。</p>
-<img src="/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/install_emacs.png" class="" title="Emacs 安装">
-
-<p>打开<code>Emacs</code>可以看到如下的界面。到这一步，已经完成了<code>Emacs</code>的安装，不可否认，这个UI已经远离时代很远很远了。那么为什么还是那么多人用<code>Emacs</code>呢？ 不得不说，正是因为<code>Emacs</code>强大的定制化能力具备了这种魅力。</p>
-<img src="/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/emacs_original.jpg" class="" title="Emacs原汁原味版本">
-
-<p>因为比较习惯在<code>iTerm</code>等终端中工作，因此直接使用终端唤起 <code>Emacs</code> 也是比较重要的。当然，<code>Emacs</code>有<code>Terminal</code>版本，不过我还是选择在终端中唤起图形界面版本的方式来做。需要在 <code>~/.bashrc</code>配置一行<code>alias</code>进行关联。如：<code>alias vim=&quot;/Applications/Emacs.app/Contents/MacOS/Emacs&quot;</code> </p>
-<h3 id="配置思路"><a href="#配置思路" class="headerlink" title="配置思路"></a>配置思路</h3><p>安装完<code>Emacs</code>之后，最重要的是根据自己的工作流进行配置。梳理了下，配置思路如下：</p>
-<h4 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h4><ul>
-<li>配置目录固定化</li>
-<li>通用配置</li>
-<li>包管理工具配置</li>
-<li>主题配置</li>
-</ul>
-<h4 id="IDE-配置"><a href="#IDE-配置" class="headerlink" title="IDE 配置"></a>IDE 配置</h4><ul>
-<li>编程语言配置（Java, Python, CPP, Node, Javascript)<ul>
-<li>自动提示</li>
-<li>方法或函数跳转</li>
-<li>Snippet</li>
-</ul>
-</li>
-</ul>
-<h4 id="效率工具配置"><a href="#效率工具配置" class="headerlink" title="效率工具配置"></a>效率工具配置</h4><ul>
-<li>编辑器支持<ul>
-<li>项目内文件快速检索</li>
-<li>文件树展示</li>
-<li>Org-Mode支持</li>
-</ul>
-</li>
-</ul>
-<p>TODO: 此处缺少一张配置完成后的最终版</p>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/Workflow/">Workflow</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/Emacs配置/">Emacs配置</a><a href="/tags/Workflow/">Workflow</a>
-    </span>
-    
-
-    </div>
-
-    
-  </div>
-</article>
 
 
 
 
-<nav class="pagination">
-  
-  
-</nav>
+
     </main>
 
     <footer class="site-footer">
