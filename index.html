@@ -1,0 +1,708 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Motionless | Work more and Talk less</title>
+
+  
+  <meta name="author" content="吴三爷">
+  
+
+  
+
+  
+  <meta name="keywords" content="motionless">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="Motionless"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Motionless" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">Motionless</a>
+    </h1>
+    <p class="site-description">Work more and Talk less</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2020/08/13/gossip-xie-yi-ying-yong/"><span>Gossip协议应用</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/08/13/gossip-xie-yi-ying-yong/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-08-13T08:35:47.000Z">
+          2020-08-13
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2020/08/08/emacs-pei-zhi-san-markdown/"><span>Emacs配置（三）-Markdown</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/08/08/emacs-pei-zhi-san-markdown/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-08-08T13:20:44.000Z">
+          2020-08-08
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h2 id="Emacs-Markdown支持"><a href="#Emacs-Markdown支持" class="headerlink" title="Emacs Markdown支持"></a>Emacs Markdown支持</h2><p>在上一篇中，完成了基本操作以及主题的支持。 目前工作上更常用的场景是使用<code>Markdown</code>编写一些技术预研方案和博客。因此，对于<code>markdown</code>的支持提上了第一优先级。</p>
+<p>另外，由于编写博客采用的是<code>hexo</code>这个框架，而<code>Emacs</code>对于原生<code>shell</code>的支持并不是特别好，因此，也在本文中顺带解决。</p>
+<p>第三个要解决的点是对于<code>git</code>和项目内文件快速搜索的支持。（类似于<code>mac os</code>下面很多IDE工具支持的 <code>cmd+shift+o</code> 快速检索项目内所有文件一样）</p>
+<h3 id="Markdown的支持"><a href="#Markdown的支持" class="headerlink" title="Markdown的支持"></a>Markdown的支持</h3><p>对于markdown的支持，最基本的一点需要对<code>markdown</code>语法的支持。其次，需要支持实时预览。然后还需要一些基本语法的自动补全以及常用的<code>snippet</code>，尤其是表格。 <code>markdown</code>本身对于表格的支持并不是特别好，因此需要编辑器作出支持。</p>
+<p>另外，经常需要将markdown导出为<code>word</code>或者<code>pdf</code>等格式。此处也需要引进<code>Pandoc</code>这把格式转换的”瑞士军刀”。关于<code>Pandoc</code>的详细介绍可以参考<a href="https://pandoc.org/index.html" target="_blank" rel="noopener">官网</a></p>
+<ul>
+<li><p>step1 - markdown语法支持</p>
+<p>在<code>.emacs.d/lisp</code>目录中新建文件<code>init-markdown.el</code>文件。依赖安装包<code>markdown-mode</code>。代码如下：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs lisp"><br><span class="hljs-comment">;;-------------------------</span><br><span class="hljs-comment">;; 配置markdown语法支持</span><br><span class="hljs-comment">;;-------------------------</span><br>(<span class="hljs-name">require-package</span> 'markdown-mode) <span class="hljs-comment">;; 依赖markdown-mode包</span><br>(<span class="hljs-name">add-to-list</span> 'auto-mode-alist '(<span class="hljs-string">"\\.md\\'"</span> . markdown-mode))<br>(<span class="hljs-name">add-to-list</span> 'auto-mode-alist '(<span class="hljs-string">"\\.markdown\\'"</span> . markdown-mode))<br><br>(<span class="hljs-name">provide</span> 'init-markdown)<br></code></pre></td></tr></table></figure>
+
+<p>完成上述代码后，执行命令<code>M-x load-file</code>重新加载<code>init.el</code>。即可发现，目前<code>Emacs</code>已经支持<code>Markdown</code></p>
+<img src="01.jpg" alt="markdown语法支持" title="markdown语法支持" />
+</li>
+<li><p>step2 - markdown实时预览支持</p>
+<p>仍旧在<code>init-markdown.el</code>文件中,依赖安装包<code>markdown-preview-mode</code>。代码如下：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">require-package</span> 'markdown-preview-mode)<br></code></pre></td></tr></table></figure>
+
+<p>Tips: <code>markdown-preview-mode</code>依赖外部工具，需要在终端中执行命令<code>gem install redcarpet</code>进行安装，若遇到权限问题，需要使用<code>sudo</code>进行提权</p>
+<p>问题: 目前的方式只能在浏览器中预览。 需要实现的方式为在左右两边分屏实现。 昨天为<code>markdown</code>原文，右边为实时预览界面。需要再找其他解决方案。</p>
+</li>
+<li><p>step3 - 自动补全&amp;snippet支持</p>
+<p>常用的命令快捷键如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript">C-c C-t n: 插入标题, # title # 类型其中 n 为 1 到 6, 对应于 HTML 对应的标题.<br>C-c C-t t: 插入标题, underline 类型, =.<br>C-c C-t s: 插入标题, underline 类型, -.<br>C-c -: 插入水平线, 默认插入设定的每行字节数的减号.<br><br>C-c c-a L: 插入引用链接, 或者 C-c C-a r, [text][label].<br>C-c C-a l: 插入链接, [text](url).<br>C-c C-a f: 插入注脚.<br><br>C-c C-i i: 插入图像, 或者 C-c TAB i, ![text](url).<br>C-c C-i I: 插入引用图像, 或者 C-c TAB I, ![text][label].<br>C-c C-s b: 插入引用, &gt;.<br><br>C-c C-s c: 插入代码, 用撇号包围的.<br>C-c C-s s: 粗体.<br>C-c C-p e: 意大利体.<br><br>C-c C-x d: 向下移动列表.<br>C-c C-x l: 提升列表等级, 即减少空格.<br>C-c C-x m: 插入列表项.<br>C-c C-x r: 降低列表等级, 即增加空格.<br>C-c C-x u: 向上移动列表.<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="Shell支持"><a href="#Shell支持" class="headerlink" title="Shell支持"></a>Shell支持</h3><p><code>Emacs</code>原生支持<code>shell</code>，使用命令<code>M-x shell</code>即可打开原生的<code>shell</code>窗口。但是存在一些问题，比如，对于中文和<code>powerline</code>类型字体支持并不好。那么在这里，采用<code>eshell</code>来解决这些问题。</p>
+<p>执行命令<code>eshell</code>即可进入到<code>eshell</code>模式。该<code>shell</code>对于中文支持没问题，不过对比<code>zsh</code>或者<code>oh-my-zsh</code>，还是差了不少功能。 </p>
+<img src="02.jpg" alt="eshell效果" title="eshell效果" width="100%" height="100%" />
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Workflow/">Workflow</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Emacs配置/">Emacs配置</a><a href="/tags/Workflow/">Workflow</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2020/08/05/scrum-shi-zhan-yi/"><span>Scrum实战（一）</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/08/05/scrum-shi-zhan-yi/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-08-05T12:10:53.000Z">
+          2020-08-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2020/08/05/mqtt-ji-zhu-xuan-xing-yu-yan/"><span>MQTT技术选型预研</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/08/05/mqtt-ji-zhu-xuan-xing-yu-yan/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-08-05T06:49:12.000Z">
+          2020-08-05
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h2 id="MQTT技术选型预研"><a href="#MQTT技术选型预研" class="headerlink" title="MQTT技术选型预研"></a>MQTT技术选型预研</h2><h3 id="MQTT-概述"><a href="#MQTT-概述" class="headerlink" title="MQTT 概述"></a>MQTT 概述</h3><p>MQTT全称为 <code>Message Queue Telemetry Transport</code> 即消息队列遥测传输协议。是一个基于<code>发布/订阅</code>范式的消息协议。MQTT协议是基于TCP/UDP协议之上的应用协议，是为硬件性能低下的远程设备以及网络状况糟糕的情况下而设计的<code>发布/订阅</code>型消息协议。</p>
+<p>MQTT协议是基于<code>TCP</code>实现的消息型协议，MQTT-SN是基于<code>UDP</code>实现的用于在蓝牙上传输</p>
+<h3 id="服务质量-QoS"><a href="#服务质量-QoS" class="headerlink" title="服务质量(QoS)"></a>服务质量(QoS)</h3><p>对于消息型协议，有一个服务质量的概念。标准的定义如下：</p>
+<ul>
+<li><p>QoS 0 </p>
+<p>最多一次传送（只负责传送，不保证消息必达）</p>
+</li>
+<li><p>QoS 1</p>
+<p>至少一次传送（确认数据到达）</p>
+</li>
+<li><p>QoS 2</p>
+<p>正好一次传送（确认数据到达，且只到达一次）</p>
+</li>
+</ul>
+<h3 id="实现对比"><a href="#实现对比" class="headerlink" title="实现对比"></a>实现对比</h3><p>目前MQTT标准协议的实现有很多，考虑到整个微服务架构和团队技术栈建立在<code>Java</code>和<code>Spring</code>之上。因此在重点对比两个中间件<code>EMQX</code>, <code>mosquitto</code>。</p>
+<ul>
+<li>特性对比</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>EMQ X</th>
+<th>Mosquitto</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MQTT协议版本</td>
+<td>v3.1，v3.1.1，v5.0</td>
+<td>v3.1，v3.1.1</td>
+</tr>
+<tr>
+<td>兼容协议</td>
+<td>Stomp协议，MQTT-SN协议，CoAP协议，Stomp/SocketJS</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>QoS</td>
+<td>QoS0，QoS1， QoS2</td>
+<td>QoS0，QoS1， QoS2</td>
+</tr>
+<tr>
+<td>TCP/SSL</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>MQTT/Websocket/SSL</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>HTTP 消息发布接口</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>系统主题</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>共享订阅</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>客户端在线状态查询/订阅</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>认证方式</td>
+<td>客户端ID或IP，用户名密码，LDAP，Redis｜MySQL | PgSQL | MongoDB | HTTP 认证支持， Cookie认证，ACL访问控制</td>
+<td>客户端ID或IP，用户名密码，ACL访问控制</td>
+</tr>
+<tr>
+<td>集群</td>
+<td>支持k8s部署和发现</td>
+<td>不支持，只能bridge方式做伪集群。真集群版本需要参考开源代码实现。</td>
+</tr>
+<tr>
+<td>限制</td>
+<td>消息速率限制，链接速率限制</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>消息类型</td>
+<td>普通消息、延时消息、遗嘱消息、消息持久化（收费方式支持）</td>
+<td>普通消息、延时消息、遗嘱消息</td>
+</tr>
+<tr>
+<td>开发语言</td>
+<td>Erlang/OTP</td>
+<td>C/C++</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>单节点100万并发连接</td>
+<td>单节点10万并发连接</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Tips</p>
+<p>更多特性对比说明可以参考 <a href="https://github.com/mqtt/mqtt.github.io/wiki/server-support" target="_blank" rel="noopener">MQTT官方特性和性能对比</a></p>
+</li>
+</ul>
+<h3 id="Mosquito-安装部署"><a href="#Mosquito-安装部署" class="headerlink" title="Mosquito 安装部署"></a>Mosquito 安装部署</h3><p>此处以<code>centos 7.6</code>为例</p>
+<h4 id="Step1-安装Mosquito-Broker"><a href="#Step1-安装Mosquito-Broker" class="headerlink" title="Step1-安装Mosquito Broker"></a>Step1-安装Mosquito Broker</h4><p>首先检查是否存在安装包。执行如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">yum search mosquitto<br></code></pre></td></tr></table></figure>
+
+<p>Tips: <code>centos</code>默认没有<code>mosquitto</code>包，需要安装额外的包管理器<code>epel-release</code>。执行命令完成包管理器的安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">yum install epel-release<br></code></pre></td></tr></table></figure>
+
+<p>接下来执行如下命令即可完成<code>broker</code> 的安装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">yum install mosquito<br></code></pre></td></tr></table></figure>
+
+<p>完成安装后，执行命令来测试是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">sudo systemctl start mosquitto<br></code></pre></td></tr></table></figure>
+
+<p>执行完上述命令后，可以执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">ps -ef | grep mosquitto<br></code></pre></td></tr></table></figure>
+
+<p>或者 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">netstat -anp | grep LISTEN<br></code></pre></td></tr></table></figure>
+
+<p>来检查是否成功启动。<code>mosquitto</code>默认会监听<code>1883</code>端口</p>
+<h4 id="Step2-测试消息订阅-发布"><a href="#Step2-测试消息订阅-发布" class="headerlink" title="Step2-测试消息订阅/发布"></a>Step2-测试消息订阅/发布</h4><p><code>mosquitto</code>安装完成后，默认会带有2个命令行工具<code>mosquitto_sub|mosquitto_pub</code>分别用来订阅主题和发布消息。</p>
+<p>首先，我们另外起一个TTY，执行命令监听一个<code>test</code>的主题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">mosquitto_sub -h localhost -t test<br></code></pre></td></tr></table></figure>
+
+<p>接着，在原来的TTY中，执行命令向<code>test</code>主题发布消息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">mosquitto_pub -h localhost -t test -m &quot;测试测试&quot;<br></code></pre></td></tr></table></figure>
+
+<p>结果如图所示：</p>
+<img src="01.jpg" width="100%" height="100%" alt="测试消息" title="测试消息" />
+
+<h3 id="EMQX-安装部署"><a href="#EMQX-安装部署" class="headerlink" title="EMQX 安装部署"></a>EMQX 安装部署</h3><p>此处以<code>centos 7.6</code>为例</p>
+<h4 id="Step1-安装EMQX-Broker"><a href="#Step1-安装EMQX-Broker" class="headerlink" title="Step1-安装EMQX Broker"></a>Step1-安装EMQX Broker</h4><p>安装<code>EMQ X</code> 需要安装依赖包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">yum install -y yum-utils device-mapper-persistent-data lvm2<br></code></pre></td></tr></table></figure>
+
+<p><code>EMQ X</code>安装包的源默认不在<code>centos</code>系统中，需要添加一个<code>repo</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">yum-config-manager --add-repo https:&#x2F;&#x2F;repos.emqx.io&#x2F;emqx-ce&#x2F;redhat&#x2F;centos&#x2F;7&#x2F;emqx-ce.repo<br></code></pre></td></tr></table></figure>
+
+<p>接着安装最新版本的<code>EMQ X</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">yum install emqx<br></code></pre></td></tr></table></figure>
+
+<p>执行命令来测试是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">sudo systemctl start eqmx<br></code></pre></td></tr></table></figure>
+
+<p>执行完上述命令后，可以执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">emqx_ctl status<br></code></pre></td></tr></table></figure>
+
+<p>检查<code>EMQ X</code>的状态来确保已经正常启动</p>
+<h4 id="Step2-测试消息订阅-发布-1"><a href="#Step2-测试消息订阅-发布-1" class="headerlink" title="Step2-测试消息订阅/发布"></a>Step2-测试消息订阅/发布</h4><p>此处我们还是采用<code>mosquitto</code>的2个命令行工具进行测试。</p>
+<p>首先，我们另外起一个TTY，执行命令监听一个<code>test</code>的主题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">mosquitto_sub -h localhost -t test -d<br></code></pre></td></tr></table></figure>
+
+<p>接着，在原来的TTY中，执行命令向<code>test</code>主题发布消息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">mosquitto_pub -h localhost -t test -m &quot;测试测试&quot; -d<br></code></pre></td></tr></table></figure>
+
+<p>结果如图所示：</p>
+<img src="02.jpg" width="100%" height="100%" alt="EMQ X测试" title="EMQ X测试" />
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/网络协议/">网络协议</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/技术选型/">技术选型</a><a href="/tags/技术预研/">技术预研</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2020/08/04/emacs-pei-zhi-er-ji-ben-pei-zhi/"><span>Emacs配置（二）-基本配置</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/08/04/emacs-pei-zhi-er-ji-ben-pei-zhi/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-08-04T13:30:17.000Z">
+          2020-08-04
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h2 id="Emacs-基本配置"><a href="#Emacs-基本配置" class="headerlink" title="Emacs 基本配置"></a>Emacs 基本配置</h2><p>在上一篇中，完成了在<code>mac</code>系统下的<code>Emacs</code>安装。现在拥有了一个UI非常原始的<code>Emacs</code>。在本节中，将规划配置目录结构，以方便配置文件的备份和共享。 </p>
+<p>同时将引入包管理工具，以方便快速的安装后续所支持的插件。</p>
+<p>再最后，利用包管理工具，尝试变更主题，以及默认全屏打开、默认显示文件行号等基础配置。</p>
+<h3 id="目录结构规划"><a href="#目录结构规划" class="headerlink" title="目录结构规划"></a>目录结构规划</h3><p>从<code>Emacs 23</code>版本开始的，在启动时首先会尝试加载<code>~/.emacs.d/init.el</code>文件或<code>~/.emacs.d/init.elc</code>文件。利用这个特性，我们可以将目录结构规划如下：</p>
+<img src="emacs_config_dir.jpg" width="100%" height="100%" title="Emacs目录结构" alt="Emacs目录结构"/>
+
+<ul>
+<li><p>init.el</p>
+<p>该文件为<code>Emacs</code>启动时首先加载的文件，在该文件内定义需要使用的组件以及通用配置</p>
+</li>
+<li><p>lisp</p>
+<p>该目录存放自定义的<code>emacs-lisp</code>代码文件，用于实现自定义的效果。如键盘映射变更等。</p>
+</li>
+<li><p>site-lisp</p>
+<p>该目录存放第三方插件。存放包管理工具中获取的依赖包。在<code>emacs版本 &gt;=24</code>时，使用该目录，否则使用 <code>elpa</code> 目录</p>
+</li>
+<li><p>auto-save-list</p>
+<p>该目录存放为自动存稿文件</p>
+</li>
+</ul>
+<h3 id="通用配置"><a href="#通用配置" class="headerlink" title="通用配置"></a>通用配置</h3><p>打开<code>init.el</code>文件。</p>
+<h4 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h4><p>加入 <code>(package-initialize)</code> 这个必备项，该项必须放在所有安装包的配置项之前。</p>
+<h4 id="step2"><a href="#step2" class="headerlink" title="step2"></a>step2</h4><p>设定额外包加载路径。按我个人的习惯而言，有两个: <code>~/.emacs.d/lisp</code> 和 <code>~/.emacs.d/elpa.</code> 前者放置自定义的<code>emacs-lisp</code>文件，后者为包管理器<code>elpa</code>所下载包所依赖的路径</p>
+<p>当前配置代码如下</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs lisp"><span class="hljs-comment">;;; 初始化配置的入口</span><br><br><span class="hljs-comment">;; 设定lisp文件路径</span><br><br><span class="hljs-comment">;; Added by Package.el.  This must come before configurations of</span><br><span class="hljs-comment">;; installed packages.  Don't delete this line.  If you don't want it,</span><br><span class="hljs-comment">;; just comment it out by adding a semicolon to the start of the line.</span><br><span class="hljs-comment">;; You may delete these explanatory comments.</span><br>(<span class="hljs-name">package-initialize</span>)<br><br><span class="hljs-comment">;; 添加lisp路径到启动加载路径</span><br>(<span class="hljs-name">add-to-list</span> 'load-path (<span class="hljs-name">expand-file-name</span> <span class="hljs-string">"lisp"</span> user-emacs-directory))<br><span class="hljs-comment">;; 添加elpa路径到启动加载路径，该路径为包管理器elpa所使用</span><br>(<span class="hljs-name">add-to-list</span> 'load-path (<span class="hljs-name">expand-file-name</span> <span class="hljs-string">"elpa"</span> user-emacs-directory))<br></code></pre></td></tr></table></figure>
+
+
+
+<p>使用 <code>M-x load-file</code>命令重新加载 <code>init.el</code>文件，使上述配置生效。如下图所示</p>
+<img src="emacs_common_config.jpg" width="100%" height="100%" title="目录结构" alt="目录结构"/>
+
+<h3 id="包管理工具配置"><a href="#包管理工具配置" class="headerlink" title="包管理工具配置"></a>包管理工具配置</h3><p>包管理工具规划在启动项配置中。首先在<code>lisp</code>目录中新建一个文件 <code>init-elpa.el</code></p>
+<p>代码如下 </p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs lisp"><span class="hljs-comment">;; 包管理器设定</span><br><br><span class="hljs-comment">;; init elpa package</span><br><span class="hljs-comment">;; 根据版本不同，设定正确的package.el</span><br>(<span class="hljs-name">let</span> ((<span class="hljs-name">package-el-site-lisp-dir</span><br>       (<span class="hljs-name">expand-file-name</span> <span class="hljs-string">"site-lisp/package"</span> user-emacs-directory)))<br>  (<span class="hljs-name">when</span> (<span class="hljs-name">and</span> (<span class="hljs-name">file-directory-p</span> package-el-site-lisp-dir)<br>	     (<span class="hljs-name">&gt;</span> emacs-major-version <span class="hljs-number">23</span>))<br>    (<span class="hljs-name">message</span> <span class="hljs-string">"Removing local package.el from load-path to avoid shadowing bundled version"</span>)<br>    (<span class="hljs-name">setq</span> load-path (<span class="hljs-name">remove</span> package-el-site-lisp-dir load-path))))<br><br>(<span class="hljs-name">require</span> 'package)<br><br><span class="hljs-comment">;; 设定package源</span><br>(<span class="hljs-name">when</span> (<span class="hljs-name">&lt;</span> emacs-major-version <span class="hljs-number">24</span>)<br>  (<span class="hljs-name">add-to-list</span> 'package-archives '(<span class="hljs-string">"marmalade"</span> . <span class="hljs-string">"http://marmalade-repo.org/packages/"</span>)))<br><br>(<span class="hljs-name">add-to-list</span> 'package-archives '(<span class="hljs-string">"org"</span> . <span class="hljs-string">"http://orgmode.org/elpa"</span>))<br><br>(<span class="hljs-name">when</span> (<span class="hljs-name">&lt;</span> emacs-major-version <span class="hljs-number">24</span>)<br>  (<span class="hljs-name">add-to-list</span> 'package-archives '(<span class="hljs-string">"gun"</span> . <span class="hljs-string">"http://elpa.gnu.org/packages/"</span>)))<br><br>(<span class="hljs-name">add-to-list</span> 'package-archives '(<span class="hljs-string">"melpa"</span> . <span class="hljs-string">"http://melpa.org/packages/"</span>))<br><br>(<span class="hljs-name">add-to-list</span> 'package-archives '(<span class="hljs-string">"melpa-stable"</span> . <span class="hljs-string">"http://stable.melpa.org/packages/"</span>))<br><br><span class="hljs-comment">;; 设定gpg</span><br>(<span class="hljs-name">defun</span> sanityinc/package-maybe-enable-signatures ()<br>  (<span class="hljs-name">setq</span> package-check-signature (<span class="hljs-name">when</span> (<span class="hljs-name">executable-find</span> <span class="hljs-string">"gpg"</span>) 'allow-unsigned)))<br><br>(<span class="hljs-name">sanityinc/package-maybe-enable-signatures</span>)<br>(<span class="hljs-name">after-load</span> 'init-exec-path<br>	    (<span class="hljs-name">sanityinc/package-maybe-enable-signatures</span>))<br><br><span class="hljs-comment">;; 请求第三方包，下载并安装</span><br>(<span class="hljs-name">defun</span> require-package (<span class="hljs-name">package</span> <span class="hljs-symbol">&amp;optional</span> min-version no-refresh)<br>  <span class="hljs-string">"Install given PACKAGE, optionally reqquiring MIN-VERSION.</span><br><span class="hljs-string">if NO-REFRESH is non-nil, the available package lists will not b re-downloaded in order to locate PACKAGE."</span><br>  (<span class="hljs-name">if</span> (<span class="hljs-name">package-installed-p</span> package min-version)<br>      <span class="hljs-literal">t</span><br>    (<span class="hljs-name">if</span> (<span class="hljs-name">or</span> (<span class="hljs-name">assoc</span> package package-archive-contents) no-refresh)<br>	(<span class="hljs-name">package-install</span> package)<br>      (<span class="hljs-name">progn</span><br>	(<span class="hljs-name">package-refresh-contents</span>)<br>	(<span class="hljs-name">require-package</span> package min-version <span class="hljs-literal">t</span>)))))<br><br>(<span class="hljs-name">defun</span> maybe-require-package (<span class="hljs-name">package</span> <span class="hljs-symbol">&amp;optional</span> min-version no-refresh)<br>  <span class="hljs-string">"Try to install PACKAGE, and return non-nil if successful.</span><br><span class="hljs-string">In the event of failure, return nil and print a warning message.</span><br><span class="hljs-string">Optionally require MIN-VERSION. if NO-REFRESH is non-nil, the available package lists will not be re-downloaded in order to locate PACKAGE."</span><br>  (<span class="hljs-name">condition-case</span> err<br>      (<span class="hljs-name">require-package</span> package min-version no-refresh)<br>    (<span class="hljs-name">error</span><br>     (<span class="hljs-name">message</span> <span class="hljs-string">"Couldn't install package '%s': %S"</span> package err)<br>     <span class="hljs-literal">nil</span>)))<br><br>(<span class="hljs-name">setq</span> package-enable-startup <span class="hljs-literal">nil</span>)<br>(<span class="hljs-name">package-initialize</span>)<br><br><span class="hljs-comment">;; 全屏</span><br>(<span class="hljs-name">require-package</span> 'fullframe)<br>(<span class="hljs-name">fullframe</span> list-packages quit-window)<br><br><span class="hljs-comment">;; 记载cl-lib</span><br>(<span class="hljs-name">require-package</span> 'cl-lib)<br>(<span class="hljs-name">require</span> 'cl-lib)<br><br>(<span class="hljs-name">defun</span> sanityinc/set-tabulated-list-column-width (<span class="hljs-name">col-name</span> width)<br>  <span class="hljs-string">"Set any column with name COL-NAME to the given WIDTH."</span><br>  (<span class="hljs-name">cl-loop</span> for column across tabulated-list-format<br>	   when (<span class="hljs-name">string=</span> col-name (<span class="hljs-name">car</span> column))<br>	   do (<span class="hljs-name">setf</span> (<span class="hljs-name">elt</span> column <span class="hljs-number">1</span>) width)))<br><br>(<span class="hljs-name">defun</span> sanityinc/maybe-widen-package-menu-columns ()<br>  <span class="hljs-string">"Widen some columns of the package menu table to avoid truncation."</span><br>  (<span class="hljs-name">when</span> (<span class="hljs-name">boundp</span> 'tabulated-list-format)<br>    (<span class="hljs-name">sanityinc/set-tabulated-list-column-width</span> <span class="hljs-string">"Version"</span> <span class="hljs-number">13</span>)<br>    (<span class="hljs-name">let</span> ((<span class="hljs-name">longest-archive-name</span> (<span class="hljs-name">apply</span> 'max (<span class="hljs-name">mapcar</span> 'length (<span class="hljs-name">mapcar</span> 'car package-archives)))))<br>      (<span class="hljs-name">sanityinc/set-tabulated-list-column-width</span> <span class="hljs-string">"Archive"</span> longest-archive-name))))<br><br><span class="hljs-comment">;; 加载包名菜单</span><br>(<span class="hljs-name">add-hook</span> 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)<br><br>(<span class="hljs-name">provide</span> 'init-elpa)<br></code></pre></td></tr></table></figure>
+
+<p>在上述代码中，定义了不同版本兼容性的包下载和安装目录。以及配置了多个安装包下载源。</p>
+<p>完成上述代码编写之后，只需要在 <code>init.el</code>中引入该文件即可。如：<code>(require &#39;init-elpa)</code></p>
+<p>关于<code>elpa</code>包管理器的使用，可参考<a href="https://www.shellcodes.org/Emacs/使用ELPA管理Emacs扩展包.html" target="_blank" rel="noopener">文章</a></p>
+<h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h4><p>TODO: <code>init-elpa.el</code>依赖了 <code>init-utils.el</code>中的某个自定义函数，若不在之前先加载<code>iint-utils.el</code> 会导致加载失败，返回值为void。</p>
+<h3 id="UI配置"><a href="#UI配置" class="headerlink" title="UI配置"></a>UI配置</h3><p>当完成了上述配置后，可使用<code>color-theme</code>配置主题. 在<code>lisp</code>目录中新建一个文件 <code>init-themes.el</code></p>
+<p>代码如下：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs lisp"><span class="hljs-comment">;; 配置界面&amp;UI</span><br><br><span class="hljs-comment">;; 老版本emacs兼容判断</span><br>(<span class="hljs-name">when</span> (<span class="hljs-name">&lt;</span> emacs-major-version <span class="hljs-number">24</span>)<br>  (<span class="hljs-name">require-package</span> 'color-theme))<br><br>(<span class="hljs-name">require-package</span> 'color-theme-sanityinc-solarized)<br><br><span class="hljs-comment">;; 使用color-theme支持老版本的主题</span><br>(<span class="hljs-name">defcustom</span> window-system-color-theme 'color-theme-sanityinc-solarized-dark<br>  <span class="hljs-string">"Color theme to use in window-system frames.</span><br><span class="hljs-string">If Emacs' native theme support is available, this setting is ignored: use `custom-enabled-themes' instead."</span><br>  <span class="hljs-symbol">:type</span> 'symbol)<br><br>(<span class="hljs-name">defcustom</span> tty-color-theme 'color-theme-terminal<br>  <span class="hljs-string">"Color theme to use in TTY frames.</span><br><span class="hljs-string">If Emacs' native theem support is available, this setting is ignored: use `custom-enabled-themes' instead."</span><br>  <span class="hljs-symbol">:type</span> 'symbol)<br><br>(<span class="hljs-name">unless</span> (<span class="hljs-name">boundp</span> 'custom-enabled-themes)<br>  (<span class="hljs-name">defun</span> color-theme-terminal ()<br>    (<span class="hljs-name">interactive</span>)<br>    (<span class="hljs-name">color-theme-solarized-dark</span>))<br>  (<span class="hljs-name">defun</span> apply-best-color-theme-for-frame-type (<span class="hljs-name">frame</span>)<br>    (<span class="hljs-name">with-selected-frame</span> frame<br>      (<span class="hljs-name">funcall</span> (<span class="hljs-name">if</span> window-system<br>		   window-system-color-theme<br>		 tty-color-theme))))<br><br>  (<span class="hljs-name">defun</span> reapply-color-themes ()<br>    (<span class="hljs-name">interactive</span>)<br>    (<span class="hljs-name">mapcar</span> 'apply-best-color-theme-for-frame-type (<span class="hljs-name">frame-list</span>)))<br><br>  (<span class="hljs-name">set-variable</span> 'color-theme-is-global <span class="hljs-literal">nil</span>)<br>  (<span class="hljs-name">add-hook</span> 'after-make-frame-functions 'apply-best-color-theme-for-frame-type)<br>  (<span class="hljs-name">add-hook</span> 'after-init-hook 'reapply-color-themes)<br>  (<span class="hljs-name">apply-best-color-theme-for-frame-type</span> (<span class="hljs-name">selected-frame</span>)))<br><br><span class="hljs-comment">;; 新版本主题支持</span><br><span class="hljs-comment">;; If you don't customize it, this is the theme you get</span><br>(<span class="hljs-name">setq-default</span> custom-enabled-themes '(sanityinc-solarized-dark))<br><br>(<span class="hljs-name">defun</span> reapply-themes ()<br>  <span class="hljs-string">"Forcibly load the themes listed in `custom-enabled-themes'."</span><br>  (<span class="hljs-name">dolist</span> (<span class="hljs-name">theme</span> custom-enabled-themes)<br>    (<span class="hljs-name">unless</span> (<span class="hljs-name">custom-theme-p</span> theme)<br>      (<span class="hljs-name">load-theme</span> theme <span class="hljs-literal">t</span>)))<br>  (<span class="hljs-name">custom-set-variables</span> `(custom-enabled-themes (quote ,custom-enabled-themes))))<br><br>(<span class="hljs-name">add-hook</span> 'after-init-hook 'reapply-themes)<br><br><span class="hljs-comment">;; 切换深浅色主题</span><br>(<span class="hljs-name">defun</span> light ()<br>  <span class="hljs-string">"Activate a light color theme."</span><br>  (<span class="hljs-name">interactive</span>)<br>  (<span class="hljs-name">color-theme-sanityinc-solarized-light</span>))<br><br>(<span class="hljs-name">defun</span> dark ()<br>  <span class="hljs-string">"Activate a dark color theme."</span><br>  (<span class="hljs-name">interactive</span>)<br>  (<span class="hljs-name">color-theme-sanityinc-solarized-dark</span>))<br><br>(<span class="hljs-name">provide</span> 'init-themes)<br></code></pre></td></tr></table></figure>
+
+<p>完成上述代码编写之后，只需要在 <code>init.el</code>中引入该文件即可。如：<code>(require &#39;init-themes)</code></p>
+<p>接着，输入 <code>M-x dark</code> 可以看到效果如下：</p>
+<img src="emacs_theme_01.jpg" width="100%" height="100%" title="目录结构" alt="目录结构"/>
+
+
+
+<h4 id="字体配置"><a href="#字体配置" class="headerlink" title="字体配置"></a>字体配置</h4><p>上述完成了主题的配置，并且自定义了两个快速切换亮色与暗色主题的函数 <code>light() | dark()</code></p>
+<p>不过可以看到，默认的字体和大小均有点太小了，尤其是对于我这种眼神不好的。接下来就改变他吧。 同时统一下文件的默认编码等。在<code>lisp</code>中新建文件<code>init-editing.el</code>文件</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs lisp"><span class="hljs-comment">;; 编辑属性设置</span><br><br><span class="hljs-comment">;; 字体大小设置</span><br>(<span class="hljs-name">set-default-font</span> <span class="hljs-string">"-*-Menlo-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1"</span>)<br><br><span class="hljs-comment">;; 全局开启行号显示</span><br>(<span class="hljs-name">global-linum-mode</span> <span class="hljs-literal">t</span>) <span class="hljs-comment">;; 开启全局行号显示</span><br><br><span class="hljs-comment">;; 设置问答为简问答</span><br>(<span class="hljs-name">fset</span> 'yes-or-no-p 'y-or-n-p)<br><br><span class="hljs-comment">;; 不生成备份文件</span><br>(<span class="hljs-name">setq</span> make-backup-files <span class="hljs-literal">nil</span>)<br><br><span class="hljs-comment">;; 开启ido-mode</span><br>(<span class="hljs-name">setq</span> ido-enable-flex-matching <span class="hljs-literal">t</span>)<br>(<span class="hljs-name">setq</span> ido-everywhere <span class="hljs-literal">t</span>)<br>(<span class="hljs-name">ido-mode</span> <span class="hljs-number">1</span>)<br><br><span class="hljs-comment">;; 设置默认的tab模式为空格，且为4格</span><br>(<span class="hljs-name">setq-default</span> indent-tabs-mode <span class="hljs-literal">t</span>)<br>(<span class="hljs-name">setq</span> default-tab-width <span class="hljs-number">4</span>)<br>(<span class="hljs-name">dolist</span> (<span class="hljs-name">hook</span> (<span class="hljs-name">list</span><br>	       'python-mode<br>	       'html-node<br>	       'js-mode<br>	       'erlang-mode<br>	       'go-mode<br>		   'c-mode<br>		   'c++-mode<br>	       ))<br>  (<span class="hljs-name">add-hook</span> hook '(lambda () (setq indent-tabs-mode <span class="hljs-literal">nil</span>))))<br><br><span class="hljs-comment">;; 设置编码</span><br>(<span class="hljs-name">set-terminal-coding-system</span> 'utf-8)<br>(<span class="hljs-name">set-keyboard-coding-system</span> 'utf-8)<br>(<span class="hljs-name">set-language-environment</span> <span class="hljs-string">"UTF-8"</span>)<br>(<span class="hljs-name">prefer-coding-system</span> 'utf-8)<br><br><span class="hljs-comment">;; 删除选中模型</span><br>(<span class="hljs-name">delete-selection-mode</span>)<br><br><span class="hljs-comment">;; 回车并缩进</span><br>(<span class="hljs-name">global-set-key</span> (<span class="hljs-name">kbd</span> <span class="hljs-string">"RET"</span>) 'newline-and-indent)<br><br><span class="hljs-comment">;; 设置kill-ring大小限制</span><br>(<span class="hljs-name">setq</span> global-mark-ring-max <span class="hljs-number">5000</span><br>	  mark-ring-max <span class="hljs-number">5000</span><br>	  mode-require-final-newline <span class="hljs-literal">t</span>)<br>(<span class="hljs-name">setq</span> kill-ring-max <span class="hljs-number">5000</span><br>	  kill-whole-line <span class="hljs-literal">t</span>)<br><br><span class="hljs-comment">;; 在diff-mode中显示 whitespace</span><br>(<span class="hljs-name">add-hook</span> 'diff-mode-hook (<span class="hljs-name">lambda</span> ()<br>							(<span class="hljs-name">setq-local</span> whitespace-style<br>										'(face<br>										  tabs<br>										  tab-mark<br>										  spaces<br>										  space-mark<br>										  trailing<br>										  indentation:<span class="hljs-symbol">:space</span><br>										  indentation:<span class="hljs-symbol">:tab</span><br>										  newline<br>										  newline-mark))<br>							(<span class="hljs-name">whitespace-mode</span> <span class="hljs-number">1</span>)))<br><br>(<span class="hljs-name">provide</span> 'init-editing)<br></code></pre></td></tr></table></figure>
+
+<p>完成上述代码编写之后，只需要在 <code>init.el</code>中引入该文件即可。如：<code>(require &#39;init-editing)</code></p>
+<p>接着，输入 <code>M-x load-file</code> 可以看到效果如下：</p>
+<img src="emacs_theme_02.jpg" width="100%" height="100%" title="当前效果"/>
+
+
+
+<h3 id="遇到的新问题以及解决方案"><a href="#遇到的新问题以及解决方案" class="headerlink" title="遇到的新问题以及解决方案"></a>遇到的新问题以及解决方案</h3><ul>
+<li><p>打开目录，提示”operation not permitted”错误</p>
+<p>在<code>mac os catalina</code>以上版本，对应用的权限访问做了更为严格的控制，需要手动开启。开启路径为：<code>系统偏好设置 -&gt; 安全性与隐私 -&gt; 完全磁盘访问权限</code> 随后把应用添加进去即可。</p>
+<p>此处要注意的是，<code>mac</code>上的<code>Emacs</code>启动脚本为 <code>/usr/bin/ruby</code>, 因此如果此处磁盘完全访问权限加入的是 <code>emacs</code>这个App本身，仍旧还是会提示 “operation not permitted”错误。需要将 <code>/usr/bin/ruby</code>加入进来才行。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Workflow/">Workflow</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Emacs配置/">Emacs配置</a><a href="/tags/Workflow/">Workflow</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/"><span>Emacs配置（一）-重新上路</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-07-27T15:46:08.000Z">
+          2020-07-27
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h1 id="重拾Emacs"><a href="#重拾Emacs" class="headerlink" title="重拾Emacs"></a>重拾Emacs</h1><p>最近使用<code>spring cloud</code>做微服务架构，老迈的机器扛不住使用<code>idea</code>同时打开几十个工程。 在做配置梳理以及代码阅读时，遇到非常大的障碍。</p>
+<p>本着轻量级的原则，使用了一段时间的<code>neo vim</code> 发现对于 <code>vim</code>的一些基本操作总是学了又忘，可能本质上还是不适应吧。突然想起来，以前就是用<code>Emacs</code>的嘛，还特意买了两个<code>HHKB</code>键盘来着，那为什么不继续用<code>Emacs</code>？ 工具还是要趁手的才好使，用的越久越习惯，才会越好使。</p>
+<p>所以有了这一篇，重新把<code>Emacs</code>捡起来。想起来在 <a href="https://github.com/Allen5/emacs_config" target="_blank" rel="noopener">Github</a> 上有以前备份的定制化<code>Emacs</code>配置。鉴于有那么2，3年没有把<code>Emacs</code>作为主力使用，一些基本的操作还是要重新温习一下。那么好，就当成全新的开始整理吧。</p>
+<h3 id="Emacs-科普"><a href="#Emacs-科普" class="headerlink" title="Emacs 科普"></a>Emacs 科普</h3><p>正经的官方科普还是需要参考下 <a href="https://zh.wikipedia.org/wiki/Emacs" target="_blank" rel="noopener">Wiki</a>.  这里随便瞎侃一下。</p>
+<p>Emacs本身是个操作系统，一个可以执行<code>emacs-lisp</code>代码的操作系统。但是，他又是个编辑器，往往被称作神的编辑器。这也恰恰说明了<code>Emacs</code>使用的学习成本是相当高的，看，需要“神”来使用。 与之相对的<code>vim</code>就被称之为“编辑器之神”。放个学习曲线图可以感受下。</p>
+<img src="/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/learn_curve.png" class="" title="Emacs Vim学习曲线图">
+
+<p>双方阵营的争端就不展开说了。简单描述下就是，像我这样又使用<code>vim</code>又使用<code>Emacs</code>的，会被双方人马架上火刑架烧死，算是对“异教徒”的惩罚，哈哈。</p>
+<p>不过，我想说的是人类之所以区别于野兽，是因为人类学会了使用工具。对，重点在这里，<strong>使用工具</strong>。 所以不必太在意阵营问题。</p>
+<h3 id="安装Emacs"><a href="#安装Emacs" class="headerlink" title="安装Emacs"></a>安装Emacs</h3><p>由于本人常年工作在<code>mac</code>系统，已经不太熟悉<code>windows</code>系统了，因此这边只描述下如何在<code>mac</code>系统中安装和使用<code>emacs</code>。对于其他系统或者其他安装方式，可以参考<code>Emacs</code><a href="https://www.gnu.org/software/emacs/download.html" target="_blank" rel="noopener">官方的安装教程</a></p>
+<p>我选择了使用<code>brew cask install emacs</code>的方式安装。如果网速快的话，略等几分钟即可完成安装。</p>
+<img src="/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/install_emacs.png" class="" title="Emacs 安装">
+
+<p>打开<code>Emacs</code>可以看到如下的界面。到这一步，已经完成了<code>Emacs</code>的安装，不可否认，这个UI已经远离时代很远很远了。那么为什么还是那么多人用<code>Emacs</code>呢？ 不得不说，正是因为<code>Emacs</code>强大的定制化能力具备了这种魅力。</p>
+<img src="/2020/07/27/emacs-pei-zhi-yi-chong-xin-shang-lu/emacs_original.jpg" class="" title="Emacs原汁原味版本">
+
+<p>因为比较习惯在<code>iTerm</code>等终端中工作，因此直接使用终端唤起 <code>Emacs</code> 也是比较重要的。当然，<code>Emacs</code>有<code>Terminal</code>版本，不过我还是选择在终端中唤起图形界面版本的方式来做。需要在 <code>~/.bashrc</code>配置一行<code>alias</code>进行关联。如：<code>alias vim=&quot;/Applications/Emacs.app/Contents/MacOS/Emacs&quot;</code> </p>
+<h3 id="配置思路"><a href="#配置思路" class="headerlink" title="配置思路"></a>配置思路</h3><p>安装完<code>Emacs</code>之后，最重要的是根据自己的工作流进行配置。梳理了下，配置思路如下：</p>
+<h4 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h4><ul>
+<li>配置目录固定化</li>
+<li>通用配置</li>
+<li>包管理工具配置</li>
+<li>主题配置</li>
+</ul>
+<h4 id="IDE-配置"><a href="#IDE-配置" class="headerlink" title="IDE 配置"></a>IDE 配置</h4><ul>
+<li>编程语言配置（Java, Python, CPP, Node, Javascript)<ul>
+<li>自动提示</li>
+<li>方法或函数跳转</li>
+<li>Snippet</li>
+</ul>
+</li>
+</ul>
+<h4 id="效率工具配置"><a href="#效率工具配置" class="headerlink" title="效率工具配置"></a>效率工具配置</h4><ul>
+<li>编辑器支持<ul>
+<li>项目内文件快速检索</li>
+<li>文件树展示</li>
+<li>Org-Mode支持</li>
+</ul>
+</li>
+</ul>
+<p>TODO: 此处缺少一张配置完成后的最终版</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Workflow/">Workflow</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Emacs配置/">Emacs配置</a><a href="/tags/Workflow/">Workflow</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+
+<nav class="pagination">
+  
+  
+</nav>
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2020 吴三爷
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>

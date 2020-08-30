@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Emacs配置（三）-Markdown | Motionless | Work more and Talk less</title>
+
+  
+  <meta name="author" content="吴三爷">
+  
+
+  
+  <meta name="description" content="Emacs Markdown支持在上一篇中，完成了基本操作以及主题的支持。 目前工作上更常用的场景是使用Markdown编写一些技术预研方案和博客。因此，对于markdown的支持提上了第一优先级。
+另外，由于编写博客采用的是hexo这个框架，而Emacs对于原生shell的支持并不是特别好，因此，">
+  
+
+  
+  <meta name="keywords" content="motionless">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="Emacs配置（三）-Markdown"/>
+
+  <meta property="og:site_name" content="Motionless"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Motionless" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">Motionless</a>
+    </h1>
+    <p class="site-description">Work more and Talk less</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/categories">分类</a></li>
+      
+        <li><a href="/tags">标签</a></li>
+      
+        <li><a href="/about">关于</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>Emacs配置（三）-Markdown</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2020/08/08/emacs-pei-zhi-san-markdown/" rel="bookmark">
+        <time class="entry-date published" datetime="2020-08-08T13:20:44.000Z">
+          2020-08-08
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h2 id="Emacs-Markdown支持"><a href="#Emacs-Markdown支持" class="headerlink" title="Emacs Markdown支持"></a>Emacs Markdown支持</h2><p>在上一篇中，完成了基本操作以及主题的支持。 目前工作上更常用的场景是使用<code>Markdown</code>编写一些技术预研方案和博客。因此，对于<code>markdown</code>的支持提上了第一优先级。</p>
+<p>另外，由于编写博客采用的是<code>hexo</code>这个框架，而<code>Emacs</code>对于原生<code>shell</code>的支持并不是特别好，因此，也在本文中顺带解决。</p>
+<p>第三个要解决的点是对于<code>git</code>和项目内文件快速搜索的支持。（类似于<code>mac os</code>下面很多IDE工具支持的 <code>cmd+shift+o</code> 快速检索项目内所有文件一样）</p>
+<h3 id="Markdown的支持"><a href="#Markdown的支持" class="headerlink" title="Markdown的支持"></a>Markdown的支持</h3><p>对于markdown的支持，最基本的一点需要对<code>markdown</code>语法的支持。其次，需要支持实时预览。然后还需要一些基本语法的自动补全以及常用的<code>snippet</code>，尤其是表格。 <code>markdown</code>本身对于表格的支持并不是特别好，因此需要编辑器作出支持。</p>
+<p>另外，经常需要将markdown导出为<code>word</code>或者<code>pdf</code>等格式。此处也需要引进<code>Pandoc</code>这把格式转换的”瑞士军刀”。关于<code>Pandoc</code>的详细介绍可以参考<a href="https://pandoc.org/index.html" target="_blank" rel="noopener">官网</a></p>
+<ul>
+<li><p>step1 - markdown语法支持</p>
+<p>在<code>.emacs.d/lisp</code>目录中新建文件<code>init-markdown.el</code>文件。依赖安装包<code>markdown-mode</code>。代码如下：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs lisp"><br><span class="hljs-comment">;;-------------------------</span><br><span class="hljs-comment">;; 配置markdown语法支持</span><br><span class="hljs-comment">;;-------------------------</span><br>(<span class="hljs-name">require-package</span> 'markdown-mode) <span class="hljs-comment">;; 依赖markdown-mode包</span><br>(<span class="hljs-name">add-to-list</span> 'auto-mode-alist '(<span class="hljs-string">"\\.md\\'"</span> . markdown-mode))<br>(<span class="hljs-name">add-to-list</span> 'auto-mode-alist '(<span class="hljs-string">"\\.markdown\\'"</span> . markdown-mode))<br><br>(<span class="hljs-name">provide</span> 'init-markdown)<br></code></pre></td></tr></table></figure>
+
+<p>完成上述代码后，执行命令<code>M-x load-file</code>重新加载<code>init.el</code>。即可发现，目前<code>Emacs</code>已经支持<code>Markdown</code></p>
+<img src="01.jpg" alt="markdown语法支持" title="markdown语法支持" />
+</li>
+<li><p>step2 - markdown实时预览支持</p>
+<p>仍旧在<code>init-markdown.el</code>文件中,依赖安装包<code>markdown-preview-mode</code>。代码如下：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">require-package</span> 'markdown-preview-mode)<br></code></pre></td></tr></table></figure>
+
+<p>Tips: <code>markdown-preview-mode</code>依赖外部工具，需要在终端中执行命令<code>gem install redcarpet</code>进行安装，若遇到权限问题，需要使用<code>sudo</code>进行提权</p>
+<p>问题: 目前的方式只能在浏览器中预览。 需要实现的方式为在左右两边分屏实现。 昨天为<code>markdown</code>原文，右边为实时预览界面。需要再找其他解决方案。</p>
+</li>
+<li><p>step3 - 自动补全&amp;snippet支持</p>
+<p>常用的命令快捷键如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript">C-c C-t n: 插入标题, # title # 类型其中 n 为 1 到 6, 对应于 HTML 对应的标题.<br>C-c C-t t: 插入标题, underline 类型, =.<br>C-c C-t s: 插入标题, underline 类型, -.<br>C-c -: 插入水平线, 默认插入设定的每行字节数的减号.<br><br>C-c c-a L: 插入引用链接, 或者 C-c C-a r, [text][label].<br>C-c C-a l: 插入链接, [text](url).<br>C-c C-a f: 插入注脚.<br><br>C-c C-i i: 插入图像, 或者 C-c TAB i, ![text](url).<br>C-c C-i I: 插入引用图像, 或者 C-c TAB I, ![text][label].<br>C-c C-s b: 插入引用, &gt;.<br><br>C-c C-s c: 插入代码, 用撇号包围的.<br>C-c C-s s: 粗体.<br>C-c C-p e: 意大利体.<br><br>C-c C-x d: 向下移动列表.<br>C-c C-x l: 提升列表等级, 即减少空格.<br>C-c C-x m: 插入列表项.<br>C-c C-x r: 降低列表等级, 即增加空格.<br>C-c C-x u: 向上移动列表.<br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="Shell支持"><a href="#Shell支持" class="headerlink" title="Shell支持"></a>Shell支持</h3><p><code>Emacs</code>原生支持<code>shell</code>，使用命令<code>M-x shell</code>即可打开原生的<code>shell</code>窗口。但是存在一些问题，比如，对于中文和<code>powerline</code>类型字体支持并不好。那么在这里，采用<code>eshell</code>来解决这些问题。</p>
+<p>执行命令<code>eshell</code>即可进入到<code>eshell</code>模式。该<code>shell</code>对于中文支持没问题，不过对比<code>zsh</code>或者<code>oh-my-zsh</code>，还是差了不少功能。 </p>
+<img src="02.jpg" alt="eshell效果" title="eshell效果" width="100%" height="100%" />
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/Workflow/">Workflow</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Emacs配置/">Emacs配置</a><a href="/tags/Workflow/">Workflow</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2020 吴三爷
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
